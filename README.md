@@ -30,9 +30,9 @@ This project includes the following features:
 Using Different Terminals and Downloading Projects
 To enhance your terminal experience, consider installing and using the following alternatives based on your operating system:
 	
-	-Windows: Install terminals like Git Bash, PowerShell, or Windows Terminal.
-	-MacOS: Try iTerm2 or Hyper for more features and customization.
-	-Linux: Explore options such as Terminator or Alacritty alongside your default terminal.
+  -Windows: Install terminals like Git Bash, PowerShell, or Windows Terminal.
+  -MacOS: Try iTerm2 or Hyper for more features and customization.
+ -Linux: Explore options such as Terminator or Alacritty alongside your default terminal.
 
 Set Up and Use
 After installing your chosen terminal:
