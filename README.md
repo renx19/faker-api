@@ -25,7 +25,7 @@ This project includes the following features:
 
 
 
-## Installation and ## Usage
+## Installation and  Usage
 
 Using Different Terminals and Downloading Projects
 To enhance your terminal experience, consider installing and using the following alternatives based on your operating system:
