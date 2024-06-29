@@ -39,7 +39,7 @@ After installing your chosen terminal:
 
 1. Navigate to Project Directory:
 
-		-Open the terminal and navigate to the directory where you want to download the project.
+	-Open the terminal and navigate to the directory where you want to download the project.
 
 2. Clone the Repository:
 	-Use the following command to clone the repository using Git:
@@ -52,7 +52,7 @@ After installing your chosen terminal:
 
 Downloading Projects
 
-	Alternatively, you can download a project as a ZIP file:
+Alternatively, you can download a project as a ZIP file:
 
 1. Download ZIP File:
 		 -Go to the repository's GitHub page: Faker API Repository.
