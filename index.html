@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout Confirmation</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <style>
+        /* Global CSS */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /* Body Styles */
+        
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #fff;
+        }
+        
+        #header {
+            background-color: #242424;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            /* Stick to the top of the viewport */
+            z-index: 1000;
+            /* Ensure it's above other content */
+        }
+        
+        .logo {
+            width: 80px;
+            /* Adjust the width as needed */
+            height: 80px;
+            /* Adjust the height as needed */
+            border-radius: 50%;
+            /* Ensures the logo remains circular */
+        }
+        
+        #navbar {
+            list-style-type: none;
+            display: flex;
+        }
+        
+        #navbar li {
+            margin-right: 10px;
+        }
+        
+        #navbar li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            /* Center icon and text vertically */
+        }
+        
+        #navbar li a.active,
+        #navbar li a:hover {
+            background-color: #0047ab;
+            border-radius: 5px;
+        }
+        
+        .nav-text {
+            margin-left: 5px;
+            /* Adjust spacing between icon and text */
+            display: block;
+            /* Show text by default */
+            font-size: 18px;
+        }
+        /* Mobile Menu */
+        
+        #mobileMenu {
+            position: relative;
+            display: none;
+        }
+        
+        .mobile-menu li a,
+        li {
+            text-decoration: none;
+            list-style-type: none;
+        }
+        
+        .mobile-menu {
+            position: relative;
+            z-index: 1000;
+            /* Ensure it's above other content */
+        }
+        
+        .floating-btn {
+            display: block;
+            width: 50px;
+            height: 50px;
+            background-color: #242424;
+            color: #fff;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .floating-btn:hover {
+            background-color: #fff;
+        }
+        
+        .items-wrapper {
+            position: absolute;
+            top: 60px;
+            /* Adjust as needed to position the menu items below the floating button */
+            right: 0;
+            background-color: #242424;
+            color: #fff;
+            width: 150px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: none;
+            /* Initially hidden */
+            z-index: 999;
+            /* Ensure it's above other content */
+        }
+        
+        .items-wrapper.active {
+            display: block;
+            /* Show items when menu is active */
+        }
+        
+        .items-wrapper a {
+            display: block;
+            padding: 10px;
+            color: #fff;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        
+        .items-wrapper a:hover {
+            background-color: #0047ab;
+        }
+        
+        h1 {
+            text-align: center;
+            padding-top: 3rem;
+        }
+        /* Ensure only active section is displayed */
+        
+        .page-section {
+            display: none;
+            min-height: 100vh;
+        }
+        
+        .page-section.active {
+            display: block;
+        }
+        /* Adjust active state for navbar links */
+        
+        #navbar ul li a.active,
+        .items-wrapper ul li a.active {
+            background-color: #0047ab;
+            border-radius: 5px;
+        }
+        /* Home CSS */
+        
+        .home-content {
+            max-width: 800px;
+            /* Adjust max-width as per your design */
+            margin: 0 auto;
+            /* Center align content */
+            padding: 20px;
+            /* Add padding for spacing */
+            line-height: 1.6;
+            /* Set line height for readability */
+        }
+        
+        .home-content p {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        
+        .logout-content {
+            display: grid;
+            place-items: center;
+            /* Centers items both horizontally and vertically */
+            height: 80vh;
+            /* Ensures the container takes up the full viewport height */
+        }
+        
+        .logout-h1 {
+            text-align: center;
+            /* Centers text horizontally */
+            margin-top: 20px;
+            /* Adjust as needed */
+        }
+        /* 
+        
+        UsersCSS */
+        
+        #usersTable {
+            border-collapse: collapse;
+            /* Ensures borders are collapsed into a single border */
+            width: 100%;
+            margin: 0 auto;
+            /* Center the table horizontally */
+        }
+        
+        #usersTable th,
+        #usersTable td {
+            border-top: 1px solid #ddd;
+            /* Top border style */
+            border-bottom: 1px solid #ddd;
+            /* Bottom border style */
+            padding: 10px;
+            /* Adjusted padding for cells */
+            text-align: center;
+            /* Align text center within cells */
+        }
+        
+        #usersTable th {
+            background-color: #242424;
+            /* Background color for header */
+            color: #fff;
+            /* Text color for header */
+        }
+        
+        #usersTable tbody tr:nth-of-type(2n) {
+            background-color: #fff;
+            /* Alternate background color for even rows */
+        }
+        
+        #searchInput {
+            width: 20rem;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            margin-top: 20px;
+        }
+        
+        .search {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        @media only screen and (min-width: 769px) and (max-width: 1400px) {
+            /* Make table scrollable */
+            .content {
+                overflow-x: auto;
+                /* Enable horizontal scrolling */
+                -ms-overflow-style: none;
+                /* Internet Explorer 10+ */
+                scrollbar-width: none;
+                /* Firefox */
+            }
+            .content::-webkit-scrollbar {
+                display: none;
+                /* Safari and Chrome */
+            }
+            /* Ensure table takes up full width for scrolling */
+            #usersTable {
+                display: block;
+                /* Make table a block element to allow scrolling */
+                width: 100%;
+                /* Ensure the table stretches to fill its container */
+            }
+            #usersTable th,
+            #usersTable td {
+                white-space: nowrap;
+                /* Prevent text from wrapping */
+            }
+        }
+        
+        @media only screen and (max-width: 768px) {
+            #mobileMenu {
+                display: block;
+                /* Show mobile menu container */
+            }
+            #navbar li {
+                display: none;
+                /* Hide regular navbar items */
+            }
+            #mobileMenu .items-wrapper.active {
+                display: block;
+                /* Show the items when menu is active */
+            }
+            /* Reset table header and cells */
+            th,
+            td {
+                display: block;
+                text-align: left;
+            }
+            th {
+                display: none;
+                /* Hide table headers on mobile */
+            }
+            /* Table data labels */
+            td:before {
+                content: attr(data-label) ": ";
+                font-weight: 700;
+                text-transform: capitalize;
+                display: inline-block;
+                /* Ensures the content starts from the left */
+                width: 30%;
+                /* Adjust width as needed */
+                white-space: nowrap;
+                /* Prevent wrapping of label */
+            }
+            /* Table data content */
+            #usersTable td {
+                text-align: left;
+                /* Align data content to the right */
+                padding-left: 20px;
+            }
+            .logo {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+            }
+            .home-content {
+                font-size: 16px;
+            }
+        }
+    </style>
+
+    <!-- Logout Modal -->
+    <div id="logoutModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to logout?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmLogoutBtn">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <section id="header">
+        <a href="#"><img src="logo.jpg" class="logo" alt="Logo"></a>
+        <div>
+            <div id="navbar" class="nav-menu">
+
+                <li><a href="#home"><i class="fas fa-home"></i><span class="nav-text">Home</span></a></li>
+                <li><a href="#users"><i class="fas fa-users"></i><span class="nav-text">Users</span></a></li>
+                <li><a href="#" id="logoutLink"><i class="fas fa-sign-out-alt"></i><span class="nav-text">Logout</span></a></li>
+
+            </div>
+            <div id="mobileMenu" class="mobile-menu">
+                <a class="floating-btn" onclick="toggleMobileMenu();">
+                    <i class="fas fa-bars"></i>
+                </a>
+                <menu class="items-wrapper">
+
+                    <li><a href="#home"><i class="fas fa-user"></i> Home</a></li>
+                    <li><a href="#users"><i class="fas fa-home"></i> Users</a></li>
+                    <li><a href="#" id="logoutLinkMobile"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+
+                </menu>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section id="home" class="page-section active">
+        <div class="home-container">
+            <h1>Discover Your Journey: Welcome</h1>
+
+            <div class="home-content">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius nulla sed nisi fringilla, vel convallis dui lacinia. Nullam ultrices vehicula nisl non condimentum. Quisque sit amet ipsum at nisl pellentesque blandit. Aliquam vitae
+                    magna at nunc vestibulum fermentum. Nullam ultricies convallis elit eget eleifend. Nulla vestibulum lobortis massa, quis vehicula mi laoreet id. Nullam non consectetur justo. Pellentesque habitant morbi tristique senectus et netus
+                    et malesuada fames ac turpis egestas. Nullam eleifend augue vel ligula molestie, ac viverra nisi faucibus. Fusce sed nulla ut odio fermentum feugiat. Nam eu velit sit amet sapien rutrum posuere. Proin interdum lectus ut libero sodales
+                    tincidunt.
+                </p>
+                <p>Nullam rhoncus consequat sapien vel fermentum. Ut sit amet scelerisque quam. Aliquam ultricies ac urna ac lacinia. Morbi pharetra ligula eget ipsum consequat fringilla. Suspendisse potenti. Vivamus volutpat libero at mauris congue, nec
+                    lobortis justo ultrices. Aenean ac ex nunc. Vestibulum sodales, sapien ac cursus fringilla, est augue sollicitudin nulla, id volutpat mi ligula eget lectus. Nam bibendum, sem sit amet dapibus vulputate, tortor turpis finibus magna,
+                    a bibendum justo est et nisi.</p>
+                <p>Integer rutrum ante in ipsum pulvinar, in commodo nulla tincidunt. Sed tincidunt neque in neque commodo, at egestas leo suscipit. In tristique elit non odio convallis, in tincidunt justo viverra. Aliquam erat volutpat. Duis hendrerit bibendum
+                    dui vel feugiat. Integer efficitur eros at ligula feugiat, at tempus eros fringilla. Cras ut aliquam dolor, ac varius risus. Phasellus consequat, libero in tempus dapibus, felis justo blandit neque, sed commodo neque est sed tellus.
+                    Maecenas ut ex libero.</p>
+            </div>
+        </div>
+
+
+        <!-- Logout Modal -->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to logout?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <a href="#logout" class="btn btn-primary">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="users" class="page-section">
+        <div class="content">
+            <div class="search">
+                <h1>List of Users</h1>
+
+                <input type="text" id="searchInput" placeholder="Search users..." onkeyup="filterTable()">
+
+            </div>
+
+            <table id="usersTable" class="table-user">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>UUID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th>Email</th>
+                        <th>IP</th>
+                        <th>Mac Address</th>
+                        <th>Website</th>
+                        <th>Image</th>
+
+
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+
+                </tbody>
+            </table>
+
+        </div>
+    </section>
+
+
+    <section id="logout" class="page-section">
+        <div class="logout-content">
+            <h1 class="logout-h1">You Have Been Logged Out</h1>
+            <!-- Add content specific to the Logout Confirmation Page -->
+        </div>
+
+
+    </section>
+
+
+
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        const fetchUserData = () => {
+            fetch('https://fakerapi.it/api/v1/users?_quantity=10&_gender=male')
+                .then(response => response.json())
+                .then(data => {
+                    const usersTable = document.getElementById('usersTable').getElementsByTagName('tbody')[0];
+
+                    data.data.forEach(user => {
+                        const row = usersTable.insertRow();
+
+                        // Define cell labels and their corresponding data properties
+                        const cellLabels = [{
+                            label: 'ID',
+                            property: 'id'
+                        }, {
+                            label: 'UUID',
+                            property: 'uuid'
+                        }, {
+                            label: 'First Name',
+                            property: 'firstname'
+                        }, {
+                            label: 'Last Name',
+                            property: 'lastname'
+                        }, {
+                            label: 'Username',
+                            property: 'username'
+                        }, {
+                            label: 'Password',
+                            property: 'password'
+                        }, {
+                            label: 'Email',
+                            property: 'email'
+                        }, {
+                            label: 'IP',
+                            property: 'ip'
+                        }, {
+                            label: 'Mac Address',
+                            property: 'macAddress'
+                        }, {
+                            label: 'Website',
+                            property: 'website'
+                        }, {
+                            label: 'Image',
+                            property: 'image'
+                        }];
+
+                        // Insert cells in the correct order with data-label attributes
+                        cellLabels.forEach((cellLabel, index) => {
+                            const cell = row.insertCell(index);
+                            cell.textContent = user[cellLabel.property];
+                            cell.setAttribute('data-label', cellLabel.label);
+
+                            if (cellLabel.label === 'Image') {
+                                const image = document.createElement('img');
+                                image.src = user[cellLabel.property];
+                                image.alt = 'User Image';
+                                cell.textContent = ''; // Clear text content if any
+                                cell.appendChild(image);
+                            }
+                        });
+                    });
+                })
+                .catch(error => console.error('Error fetching user data:', error));
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchUserData);
+
+
+        function filterTable() {
+            // Get the search query
+            let input = document.getElementById('searchInput');
+            let filter = input.value.toLowerCase();
+
+            // Get the table and table rows
+            let table = document.getElementById('usersTable');
+            let tr = table.getElementsByTagName('tr');
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (let i = 1; i < tr.length; i++) { // Start from index 1 to skip the header row
+                let tdArray = tr[i].getElementsByTagName('td');
+                let match = false;
+
+                // Loop through all table cells in the row
+                for (let j = 0; j < tdArray.length; j++) {
+                    let td = tdArray[j];
+                    if (td) {
+                        let textValue = td.textContent || td.innerText;
+
+                        // Check if the cell text contains the filter text
+                        if (textValue.toLowerCase().indexOf(filter) > -1) {
+                            match = true;
+                            break; // Found a match, no need to check further cells
+                        }
+                    }
+                }
+
+                // Show or hide the row based on match
+                tr[i].style.display = match ? "" : "none";
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var confirmLogoutBtn = document.getElementById('confirmLogoutBtn');
+            var logoutLink = document.getElementById('logoutLink');
+            var logoutLinkMobile = document.getElementById('logoutLinkMobile');
+            var logoutSection = document.getElementById('logout');
+
+            if (confirmLogoutBtn) {
+                confirmLogoutBtn.addEventListener('click', function() {
+                    // Perform any logout actions if needed
+                    // Hide the modal
+                    $('#logoutModal').modal('hide');
+                    // Show the logout section
+                    activateSection('logout');
+                });
+            }
+
+            if (logoutLink) {
+                logoutLink.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    $('#logoutModal').modal('show');
+                });
+            }
+
+            if (logoutLinkMobile) {
+                logoutLinkMobile.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    $('#logoutModal').modal('show');
+                });
+            }
+
+            // Function to activate section based on ID
+            function activateSection(sectionId) {
+                // Deactivate all sections
+                var sections = document.querySelectorAll('.page-section');
+                sections.forEach(function(section) {
+                    section.classList.remove('active');
+                });
+
+                // Activate the target section
+                var targetSection = document.getElementById(sectionId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                }
+
+                // Update active state in navbar
+                var navLinks = document.querySelectorAll('#navbar a, .items-wrapper a');
+                navLinks.forEach(function(link) {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + sectionId) {
+                        link.classList.add('active');
+                    }
+                });
+
+                // Update the URL hash
+                if (window.location.hash !== '#' + sectionId) {
+                    window.location.hash = sectionId;
+                }
+
+                // Close mobile menu if open
+                var menu = document.querySelector('.items-wrapper');
+                if (menu) {
+                    menu.classList.remove('active');
+                }
+            }
+
+            // Handle clicks on navbar links
+            var navLinks = document.querySelectorAll('#navbar a, .items-wrapper a');
+            navLinks.forEach(function(link) {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    var sectionId = link.getAttribute('href').substring(1);
+                    activateSection(sectionId);
+                });
+            });
+
+            // Handle browser back/forward navigation
+            window.addEventListener('hashchange', function() {
+                var sectionId = window.location.hash.substring(1);
+                activateSection(sectionId);
+            });
+
+            // If there's a hash in the URL when the page loads, activate that section
+            if (window.location.hash) {
+                var initialSectionId = window.location.hash.substring(1);
+                activateSection(initialSectionId);
+            } else {
+                // Initial activation of Home section if no hash is present
+                activateSection('home');
+            }
+        });
+
+        function toggleMobileMenu() {
+            var menu = document.querySelector('.items-wrapper');
+            if (menu) {
+                menu.classList.toggle('active');
+            }
+        }
+    </script>
+
+</body>
+
+</html>
