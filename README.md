@@ -56,7 +56,7 @@ Alternatively, you can download a project as a ZIP file:
 
 1. Download ZIP File:
 		 -Go to the repository's GitHub page: Faker API Repository.
-	     -Click on the green "Code" button and select "Download ZIP".
+	         -Click on the green "Code" button and select "Download ZIP".
 		-Extract the ZIP file to your desired location on your computer.
 
 
