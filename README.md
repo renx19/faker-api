@@ -30,9 +30,9 @@ This project includes the following features:
 Using Different Terminals and Downloading Projects
 To enhance your terminal experience, consider installing and using the following alternatives based on your operating system:
 	
-  -Windows: Install terminals like Git Bash, PowerShell, or Windows Terminal.
-  -MacOS: Try iTerm2 or Hyper for more features and customization.
- -Linux: Explore options such as Terminator or Alacritty alongside your default terminal.
+  - Windows: Install terminals like Git Bash, PowerShell, or Windows Terminal.
+  - MacOS: Try iTerm2 or Hyper for more features and customization.
+  - Linux: Explore options such as Terminator or Alacritty alongside your default terminal.
 
 Set Up and Use
 After installing your chosen terminal:
@@ -57,9 +57,9 @@ Alternatively, you can download a project as a ZIP file:
 
 1. Download ZIP File:
 
-     -Go to the repository's GitHub page: Faker API Repository.
-     -Click on the green "Code" button and select "Download ZIP".
-     -Extract the ZIP file to your desired location on your computer.
+     - Go to the repository's GitHub page: Faker API Repository.
+     - Click on the green "Code" button and select "Download ZIP".
+     - Extract the ZIP file to your desired location on your computer.
 
 
 Using VS Code
@@ -67,9 +67,9 @@ Using VS Code
 
 1. Open in VS Code:
 
-	-Launch VS Code.
-	-Use the "File" menu to open the folder where you cloned or extracted the project.
-	-Start Working:
+	- Launch VS Code.
+	- Use the "File" menu to open the folder where you cloned or extracted the project.
+	- Start Working:
 
 2. You can now use it:
 
@@ -98,9 +98,9 @@ To Deploy the Project:
    
 4.  Enable GitHub Pages for the gh-pages branch:
 
-	-Go to your repository on GitHub.
-	-Navigate to Settings > Pages.
-	-Set the Source to gh-pages branch and save.
+	- Go to your repository on GitHub.
+	- Navigate to Settings > Pages.
+	- Set the Source to gh-pages branch and save.
 
 5. You can now view your deployed pages at github pages
 
