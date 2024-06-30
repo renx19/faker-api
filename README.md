@@ -42,6 +42,7 @@ After installing your chosen terminal:
 	-Open the terminal and navigate to the directory where you want to download the project.
 
 2. Clone the Repository:
+	
 	-Use the following command to clone the repository using Git:
 	-Copy this command
 	-This command clones the repository from GitHub to your local machine.
@@ -55,9 +56,10 @@ Downloading Projects
 Alternatively, you can download a project as a ZIP file:
 
 1. Download ZIP File:
-		 -Go to the repository's GitHub page: Faker API Repository.
-	         -Click on the green "Code" button and select "Download ZIP".
-		-Extract the ZIP file to your desired location on your computer.
+
+     -Go to the repository's GitHub page: Faker API Repository.
+     -Click on the green "Code" button and select "Download ZIP".
+     -Extract the ZIP file to your desired location on your computer.
 
 
 Using VS Code
